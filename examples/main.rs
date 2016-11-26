@@ -3,8 +3,8 @@ extern crate glium;
 extern crate cgmath;
 extern crate convex_hull;
 extern crate rand;
-extern crate time;
 
+use std::time::Instant;
 use std::fs::File;
 use std::io::Read;
 
@@ -108,10 +108,10 @@ fn main() {
   // let random_points = rand_points_on_sphere(&mut rand_rng, NUM_POINTS, 1.0);
   // let random_points = same_point(NUM_POINTS);
 
-  let start = time::get_time();
+  let start = Instant::now();
   let hull_mesh = convex_hull::get_convex_hull(random_points);
-  let duration = time::get_time() - start;
-  println!("convex hull computation took: {} seconds", duration);
+  let duration = start.elapsed();
+  println!("convex hull computation took: {} seconds", duration.as_secs());
 
   let hull_mesh_buffer = BufferSet::from_half_edge_mesh_flat_faces(& window, & hull_mesh);
 
